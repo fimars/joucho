@@ -181,6 +181,8 @@ func (g *greeter) build() *gtk.ApplicationWindow {
 	}
 
 	if g.isekai() {
+		// The concept's type rules (style.css) hang off this class.
+		win.AddCssClass("isekai")
 		g.buildIsekai(win)
 	} else {
 		g.buildPlain(win)

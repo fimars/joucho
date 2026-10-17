@@ -90,7 +90,10 @@ sudo systemctl stop sddm && sudo systemctl start greetd
   (Isekaijoucho) of KAMITSUBAKI STUDIO. Keep the credit and the
   "not affiliated" line that `decor.go` draws and what `NOTICE` states;
   do not add official artwork, logos or fonts, and do not suggest
-  affiliation with the artist or the studio.
+  affiliation with the artist or the studio. The card's type is part
+  of the dress: the rules live in `assets/style.css` under
+  `window.greet.isekai`, and a font named in the settings still wins
+  (`style.go`).
 - **The greeter user sees almost nothing.** It runs as `greetd` and can
   read `/etc/passwd` and `/usr/share/wayland-sessions` — not the user's
   home. A picture, font or theme from a home directory is a bug.

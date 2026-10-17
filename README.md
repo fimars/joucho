@@ -108,7 +108,10 @@ come from the theme it is based on. Copy one from the shell's
 `theme = "isekai"` is not a colour swap. It draws the greeter as a
 character study of ヰ世界情緒: paper and grain, the night panel on the
 right with the ヰ and the vertical title, vines and a rust thread, the
-eye-flower, the palette. The card sits on the paper, left of the mark.
+eye-flower, the palette. The card sits on the paper, left of the mark,
+and follows the concept's type: Mincho for what it says, the poster's
+tracked grotesque for the date and the call to action, serif figures for
+the clock — unless the settings name a font of their own.
 The composition is fimars's own drawing (`decor.go`), in the concept's
 1600 × 1000 units; `--demo --theme isekai` shows it at that size, and
 `--render FILE` draws it with no display at all.

@@ -55,12 +55,18 @@ func (g *greeter) themeCSS(name string) string {
 // then CJK, with the system's sans as the last resort.
 var builtinFont = []string{"Zen Kaku Gothic New", "Noto Sans CJK JP", "Noto Sans CJK SC"}
 
-// fontCSS overrides the window font when the settings name one.
+// fontCSS overrides the window font when the settings name one. The
+// isekai dress gives the card a face of its own (style.css), so the
+// setting is repeated for those selectors and stays the user's choice.
 func (g *greeter) fontCSS() string {
 	if g.cfg.Font == "" {
 		return ""
 	}
-	return fmt.Sprintf("window.greet { font-family: %s; }\n", fontStack(g.cfg.Font))
+	sel := "window.greet"
+	if g.isekai() {
+		sel += ", window.greet.isekai, window.greet.isekai .greet-time, window.greet.isekai .greet-date, window.greet.isekai button.primary"
+	}
+	return fmt.Sprintf("%s { font-family: %s; }\n", sel, fontStack(g.cfg.Font))
 }
 
 // fontStack is one family first, then the built-in stack.

@@ -129,6 +129,20 @@ popover.greet-menu button.menu-item image.check { color: @accent; }
 
 /* The isekai theme's night panel (decor.go draws what is in it). */
 .isekai-night { background: @sb; }
+
+/* The isekai card is set as the concept's artwork is: Mincho for what it
+   says, the poster's tracked grotesque for the micro lines and the call
+   to action, serif figures for the clock. Other themes keep inua's
+   humanist sans. A font named in the settings still wins (see style.go). */
+window.greet.isekai { font-family: "Noto Serif CJK JP", "Noto Serif", serif; }
+window.greet.isekai .greet-time { font-family: "Noto Serif", "Noto Serif CJK JP", serif; }
+window.greet.isekai .greet-date { font-family: "Noto Sans", "Noto Sans CJK JP", sans-serif; }
+window.greet.isekai button.primary {
+  font-family: "Noto Sans", "Noto Sans CJK JP", sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
 .isekai-power button.plain {
   min-width: 32px;
   min-height: 32px;

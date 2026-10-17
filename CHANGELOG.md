@@ -31,8 +31,8 @@ unchanged.
 - The `isekai` theme's composition, drawn with cairo in the concept's
   own units: paper grain, the night panel, the ヰ, vines and the rust
   thread, the eye-flower, vertical writing, micro labels and the
-  palette. A fan tribute to ヰ世界情緒; the credit and the fan-concept
-  note are in `NOTICE`.
+  palette, with the card set in the concept's own type. A fan tribute
+  to ヰ世界情緒; the credit and the fan-concept note are in `NOTICE`.
 - Settings in `/etc/joucho/config.toml`, defaults from
   `assets/config.toml`, and custom themes at
   `/etc/joucho/themes/NAME.css`.
