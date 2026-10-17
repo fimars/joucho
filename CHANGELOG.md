@@ -49,3 +49,10 @@ unchanged.
 - Tests for the greetd wire format and desktop `Exec` parsing.
 - Apache-2.0 licensing (`LICENSE`), with the attribution for the parts
   taken from inua in `NOTICE`.
+
+### Fixed
+
+- The suspend button asked for `system-suspend-symbolic`, which
+  adwaita-icon-theme 50 no longer carries, so it showed the
+  missing-image icon. It now uses `weather-clear-night-symbolic`, the
+  same moon the inua icons draw.

@@ -406,7 +406,7 @@ func (g *greeter) buildSessionMenu() {
 
 // powerActions are the buttons in the corner.
 var powerActions = []struct{ name, icon, tip string }{
-	{"Suspend", "system-suspend-symbolic", "Suspend"},
+	{"Suspend", "weather-clear-night-symbolic", "Suspend"},
 	{"Reboot", "system-reboot-symbolic", "Restart"},
 	{"PowerOff", "system-shutdown-symbolic", "Shut down"},
 }
