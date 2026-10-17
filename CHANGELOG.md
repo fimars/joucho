@@ -3,12 +3,11 @@
 Notable changes to joucho are recorded here.
 
 The format is [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-and this project intends to use [Semantic Versioning](https://semver.org/).
-Nothing has been tagged yet: the first commit is this MVP, and everything
-below stays under `Unreleased` until the first release moves it out
-unchanged.
+and this project uses [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
+
+## [1.0.0] - 2026-10-17
 
 ### Added
 
@@ -24,6 +23,9 @@ unchanged.
   which can be retried after a failed attempt.
 - Suspend, restart and shut down buttons through
   `org.freedesktop.login1`, and a setting to hide them.
+- Whole-interface `ui_scale` for the card, controls, icons, spacing and
+  fonts, calculated from the first monitor's logical DPI unless set, with
+  `--ui-scale` to override it for a preview.
 - The eight built-in [inua](https://github.com/lyricat/inua) colour
   themes, `text_scale` (font sizes only, as the shell's), a configurable
   window font with a warning when it is missing for the greeter user,

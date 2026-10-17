@@ -107,8 +107,8 @@ func (g *greeter) buildIsekai(win *gtk.ApplicationWindow) {
 		power.AddCssClass("isekai-power")
 		power.SetHalign(gtk.AlignEndValue)
 		power.SetValign(gtk.AlignStartValue)
-		power.SetMarginTop(20)
-		power.SetMarginEnd(int32(20))
+		power.SetMarginTop(g.px(20))
+		power.SetMarginEnd(g.px(20))
 		root.AddOverlay(&power.Widget)
 		power.Unref()
 	}

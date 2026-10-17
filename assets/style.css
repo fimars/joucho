@@ -1,7 +1,8 @@
 /* joucho's style, in inua's language (ui/style.css): hairline borders,
    2–4 px corners, one accent per surface, mono readouts, humanist sans
    running text. The colours are the theme's tokens, loaded before this
-   file. Font sizes are in px so text_scale can scale them. */
+   file. Pixel sizes let ui_scale scale the interface; text_scale then
+   scales only font sizes. */
 
 window.greet {
   font-family: "Zen Kaku Gothic New", "Noto Sans CJK JP", "Noto Sans CJK SC", sans-serif;

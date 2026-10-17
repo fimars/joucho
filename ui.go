@@ -142,11 +142,20 @@ func (g *greeter) activate() {
 	g.startAuth()
 }
 
+// px scales a fixed widget size by ui_scale.
+func (g *greeter) px(size int) int32 {
+	return int32((size*g.cfg.UIScale + 50) / 100)
+}
+
 // loadStyle builds the stylesheet: the theme's tokens, inua's look scaled
-// by text_scale, and the ground.
+// by ui_scale and text_scale, and the ground.
 func (g *greeter) loadStyle() {
+	if g.cfg.UIScale == 0 {
+		g.cfg.UIScale = automaticUIScale()
+	}
 	g.warnMissingFont()
-	css := g.themeCSS(g.cfg.Theme) + "\n" + scaleText(greeterStyle, g.cfg.TextScale) + "\n" + g.fontCSS() + "\n" + g.groundCSS()
+	style := scaleText(scaleUI(greeterStyle, g.cfg.UIScale), g.cfg.TextScale)
+	css := g.themeCSS(g.cfg.Theme) + "\n" + style + "\n" + g.fontCSS() + "\n" + g.groundCSS()
 	g.css = gtk.NewCssProvider()
 	g.css.LoadFromString(css)
 	gtk.StyleContextAddProviderForDisplay(gdk.DisplayGetDefault(), g.css, uint32(gtk.STYLE_PROVIDER_PRIORITY_APPLICATION))
@@ -216,8 +225,8 @@ func (g *greeter) buildPlain(win *gtk.ApplicationWindow) {
 		power := g.buildPower()
 		power.SetHalign(gtk.AlignEndValue)
 		power.SetValign(gtk.AlignStartValue)
-		power.SetMarginTop(16)
-		power.SetMarginEnd(16)
+		power.SetMarginTop(g.px(16))
+		power.SetMarginEnd(g.px(16))
 		overlay.AddOverlay(&power.Widget)
 		power.Unref()
 	}
@@ -228,11 +237,11 @@ func (g *greeter) buildPlain(win *gtk.ApplicationWindow) {
 
 // buildCard is the sign-in card.
 func (g *greeter) buildCard() *gtk.Box {
-	card := gtk.NewBox(gtk.OrientationVerticalValue, 12)
+	card := gtk.NewBox(gtk.OrientationVerticalValue, g.px(12))
 	card.AddCssClass("greet-card")
-	card.SetSizeRequest(400, -1)
+	card.SetSizeRequest(g.px(400), -1)
 
-	head := gtk.NewBox(gtk.OrientationVerticalValue, 2)
+	head := gtk.NewBox(gtk.OrientationVerticalValue, g.px(2))
 	g.timeLbl = gtk.NewLabel("")
 	g.timeLbl.AddCssClass("greet-time")
 	g.timeLbl.SetHalign(gtk.AlignStartValue)
@@ -251,9 +260,9 @@ func (g *greeter) buildCard() *gtk.Box {
 	g.userBtn.AddCssClass("row")
 	g.userBtn.SetName("user")
 	g.userBtn.SetTooltipText(g.i18n.T("User"))
-	userRow := gtk.NewBox(gtk.OrientationHorizontalValue, 8)
+	userRow := gtk.NewBox(gtk.OrientationHorizontalValue, g.px(8))
 	userIcon := gtk.NewImageFromIconName("avatar-default-symbolic")
-	userIcon.SetPixelSize(16)
+	userIcon.SetPixelSize(g.px(16))
 	appendTo(userRow, &userIcon.Widget)
 	g.userName = gtk.NewLabel(g.user.display())
 	g.userName.AddCssClass("name")
@@ -262,7 +271,7 @@ func (g *greeter) buildCard() *gtk.Box {
 	g.userName.SetEllipsize(3) // pango.EllipsizeEnd
 	appendTo(userRow, &g.userName.Widget)
 	userArrow := gtk.NewImageFromIconName("pan-down-symbolic")
-	userArrow.SetPixelSize(16)
+	userArrow.SetPixelSize(g.px(16))
 	userArrow.AddCssClass("dim-icon")
 	appendTo(userRow, &userArrow.Widget)
 	g.userBtn.SetChild(&userRow.Widget)
@@ -283,9 +292,9 @@ func (g *greeter) buildCard() *gtk.Box {
 	g.sessionBtn.AddCssClass("row")
 	g.sessionBtn.SetName("session")
 	g.sessionBtn.SetTooltipText(g.i18n.T("Session"))
-	sessRow := gtk.NewBox(gtk.OrientationHorizontalValue, 8)
+	sessRow := gtk.NewBox(gtk.OrientationHorizontalValue, g.px(8))
 	sessIcon := gtk.NewImageFromIconName(g.sessionIcon(g.session))
-	sessIcon.SetPixelSize(16)
+	sessIcon.SetPixelSize(g.px(16))
 	appendTo(sessRow, &sessIcon.Widget)
 	g.sessionName = gtk.NewLabel(g.session.Name)
 	g.sessionName.AddCssClass("name")
@@ -294,7 +303,7 @@ func (g *greeter) buildCard() *gtk.Box {
 	g.sessionName.SetEllipsize(3)
 	appendTo(sessRow, &g.sessionName.Widget)
 	sessArrow := gtk.NewImageFromIconName("pan-down-symbolic")
-	sessArrow.SetPixelSize(16)
+	sessArrow.SetPixelSize(g.px(16))
 	sessArrow.AddCssClass("dim-icon")
 	appendTo(sessRow, &sessArrow.Widget)
 	g.sessionBtn.SetChild(&sessRow.Widget)
@@ -338,23 +347,23 @@ func (g *greeter) buildUserMenu() {
 	g.userPop.AddCssClass("greet-menu")
 	g.userPop.SetHasArrow(false)
 	g.userPop.SetParent(&g.userBtn.Widget)
-	box := gtk.NewBox(gtk.OrientationVerticalValue, 2)
+	box := gtk.NewBox(gtk.OrientationVerticalValue, g.px(2))
 	for i := range g.users {
 		u := g.users[i]
 		b := gtk.NewButton()
 		b.AddCssClass("menu-item")
 		b.SetName(fmt.Sprintf("user:%d", i))
 		b.SetTooltipText(u.Name)
-		row := gtk.NewBox(gtk.OrientationHorizontalValue, 8)
+		row := gtk.NewBox(gtk.OrientationHorizontalValue, g.px(8))
 		icon := gtk.NewImageFromIconName("avatar-default-symbolic")
-		icon.SetPixelSize(16)
+		icon.SetPixelSize(g.px(16))
 		appendTo(row, &icon.Widget)
 		label := gtk.NewLabel(u.display())
 		label.SetXalign(0)
 		label.SetHexpand(true)
 		appendTo(row, &label.Widget)
 		check := gtk.NewImageFromIconName("object-select-symbolic")
-		check.SetPixelSize(16)
+		check.SetPixelSize(g.px(16))
 		check.AddCssClass("check")
 		check.SetVisible(u.Name == g.user.Name)
 		g.userChecks = append(g.userChecks, check)
@@ -374,23 +383,23 @@ func (g *greeter) buildSessionMenu() {
 	g.sessionPop.AddCssClass("greet-menu")
 	g.sessionPop.SetHasArrow(false)
 	g.sessionPop.SetParent(&g.sessionBtn.Widget)
-	box := gtk.NewBox(gtk.OrientationVerticalValue, 2)
+	box := gtk.NewBox(gtk.OrientationVerticalValue, g.px(2))
 	for i := range g.sessions {
 		s := g.sessions[i]
 		b := gtk.NewButton()
 		b.AddCssClass("menu-item")
 		b.SetName(fmt.Sprintf("session:%d", i))
 		b.SetTooltipText(s.File)
-		row := gtk.NewBox(gtk.OrientationHorizontalValue, 8)
+		row := gtk.NewBox(gtk.OrientationHorizontalValue, g.px(8))
 		icon := gtk.NewImageFromIconName(g.sessionIcon(s))
-		icon.SetPixelSize(16)
+		icon.SetPixelSize(g.px(16))
 		appendTo(row, &icon.Widget)
 		label := gtk.NewLabel(s.Name)
 		label.SetXalign(0)
 		label.SetHexpand(true)
 		appendTo(row, &label.Widget)
 		check := gtk.NewImageFromIconName("object-select-symbolic")
-		check.SetPixelSize(16)
+		check.SetPixelSize(g.px(16))
 		check.AddCssClass("check")
 		check.SetVisible(s.File == g.session.File)
 		g.sessChecks = append(g.sessChecks, check)
@@ -413,13 +422,17 @@ var powerActions = []struct{ name, icon, tip string }{
 
 // buildPower makes the suspend, restart and power off buttons.
 func (g *greeter) buildPower() *gtk.Box {
-	box := gtk.NewBox(gtk.OrientationHorizontalValue, 4)
+	box := gtk.NewBox(gtk.OrientationHorizontalValue, g.px(4))
 	box.AddCssClass("greet-power")
 	for _, a := range powerActions {
-		b := gtk.NewButtonFromIconName(a.icon)
+		b := gtk.NewButton()
 		b.AddCssClass("plain")
 		b.SetName(a.name)
 		b.SetTooltipText(g.i18n.T(a.tip))
+		icon := gtk.NewImageFromIconName(a.icon)
+		icon.SetPixelSize(g.px(16))
+		b.SetChild(&icon.Widget)
+		icon.Unref()
 		b.ConnectClicked(&g.onPower)
 		appendTo(box, &b.Widget)
 	}

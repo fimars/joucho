@@ -20,7 +20,8 @@ func main() {
 
 	cfgPath := flag.String("config", defaultConfigPath, "config file")
 	theme := flag.String("theme", "", "colour theme (overrides the config)")
-	scale := flag.Int("text-scale", 0, "text size, 80 to 150 percent (overrides the config)")
+	uiScale := flag.Int("ui-scale", 0, "UI size, 80 to 200 percent (overrides the config)")
+	textScale := flag.Int("text-scale", 0, "text size, 80 to 150 percent (overrides the config)")
 	demo := flag.Bool("demo", false, "run without greetd: no real authentication")
 	sessionDirs := flag.String("sessions-dir", "", "session directories, colon separated (the system's by default)")
 	listFlag := flag.Bool("list", false, "list the users and sessions found, then exit")
@@ -34,8 +35,11 @@ func main() {
 	if *theme != "" {
 		cfg.Theme = *theme
 	}
-	if *scale >= minTextScale && *scale <= maxTextScale {
-		cfg.TextScale = *scale
+	if *uiScale >= minUIScale && *uiScale <= maxUIScale {
+		cfg.UIScale = *uiScale
+	}
+	if *textScale >= minTextScale && *textScale <= maxTextScale {
+		cfg.TextScale = *textScale
 	}
 
 	dirs := defaultSessionDirs

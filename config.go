@@ -11,6 +11,7 @@ import (
 // the defaults. Bad values fall back with a warning, as inua's do.
 type Config struct {
 	Theme        string `toml:"theme"`         // a built-in inua theme, or themes/NAME.css beside the config
+	UIScale      int    `toml:"ui_scale"`      // percent, 80 to 200; 0 automatic
 	TextScale    int    `toml:"text_scale"`    // percent, 80 to 150
 	Language     string `toml:"language"`      // "auto", "en", "zh_CN"
 	User         string `toml:"user"`          // login name to start on, "" for the first
@@ -25,6 +26,8 @@ const (
 	defaultConfigPath = "/etc/joucho/config.toml"
 	defaultTheme      = "washi"
 
+	minUIScale   = 80
+	maxUIScale   = 200
 	minTextScale = 80
 	maxTextScale = 150
 )
@@ -33,6 +36,7 @@ const (
 func defaultConfig() Config {
 	return Config{
 		Theme:     defaultTheme,
+		UIScale:   0,
 		TextScale: 100,
 		Language:  "auto",
 		Session:   "inua.desktop",
@@ -48,6 +52,9 @@ func loadConfig(path string) (Config, error) {
 			return c, nil
 		}
 		return c, err
+	}
+	if c.UIScale != 0 && (c.UIScale < minUIScale || c.UIScale > maxUIScale) {
+		c.UIScale = 0
 	}
 	if c.TextScale < minTextScale || c.TextScale > maxTextScale {
 		c.TextScale = 100

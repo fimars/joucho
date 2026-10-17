@@ -9,8 +9,13 @@
 # file.
 theme = "washi"
 
-# Text size of the greeter, 80 to 150 percent. Only font sizes scale, as in
-# inua's style.text_scale.
+# Overall greeter size: card, controls, icons, spacing and fonts. 0 (or an
+# unset value) calculates it from the first monitor's logical DPI; 80 to 200
+# sets it manually.
+ui_scale = 0
+
+# Additional text size, 80 to 150 percent. Applied after ui_scale; only font
+# sizes scale further, as in inua's style.text_scale.
 text_scale = 100
 
 # "auto" follows the system (LANG, LC_ALL, LC_MESSAGES); or "en", "zh_CN".

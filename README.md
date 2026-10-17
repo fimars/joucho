@@ -44,7 +44,7 @@ Preview it inside your running session — no greetd, no authentication:
 
 ```sh
 ./joucho --demo
-./joucho --demo --theme yoru --text-scale 125
+./joucho --demo --theme yoru --ui-scale 160
 ```
 
 `--list` prints the users and sessions found and exits.
@@ -53,6 +53,7 @@ Preview it inside your running session — no greetd, no authentication:
 | --- | --- |
 | `--config PATH` | settings file (default `/etc/joucho/config.toml`) |
 | `--theme NAME` | colour theme, overrides `theme` |
+| `--ui-scale N` | 80 to 200, overrides `ui_scale` |
 | `--text-scale N` | 80 to 150, overrides `text_scale` |
 | `--demo` | run in your session without greetd; no real authentication |
 | `--sessions-dir DIRS` | where sessions are looked for, colon separated |
@@ -89,7 +90,8 @@ as the greetd user and cannot read your home directory):
 | Setting | Default | What |
 | --- | --- | --- |
 | `theme` | `"washi"` | a built-in theme (`washi`, `yoru`, `isekai`, …), or `themes/NAME.css` beside the config |
-| `text_scale` | `100` | text size, 80 to 150 percent — the same meaning as inua's `style.text_scale`, and only font sizes scale |
+| `ui_scale` | `0` (automatic) | whole interface size, 80 to 200 percent — card, controls, icons, spacing and fonts; `text_scale` applies to fonts additionally |
+| `text_scale` | `100` | additional text size, 80 to 150 percent — the same meaning as inua's `style.text_scale`, and only font sizes scale |
 | `language` | `"auto"` | `auto` (LANG), `en`, `zh_CN` |
 | `user` | `""` | user to start on; empty picks the one who logged in last this boot |
 | `session` | `"inua.desktop"` | session from `/usr/share/wayland-sessions` to start on |
@@ -97,6 +99,11 @@ as the greetd user and cannot read your home directory):
 | `font` | `""` | window font; empty uses the built-in stack, the shell's own (Zen Kaku Gothic New, Noto Sans CJK JP/SC) |
 | `power` | `true` | show suspend, restart and shut down (they ask logind; without permission it says so) |
 | `clock_seconds` | `false` | show seconds in the clock |
+
+Automatic `ui_scale` compares the first monitor's logical DPI with the
+design's 96 DPI baseline, rounds to the nearest 20 percent and clamps to
+100–200. A missing physical size falls back to 100. Set any value from 80
+to 200 to override it; `100` forces the original size.
 
 A theme of your own goes in `/etc/joucho/themes/NAME.css`: the same
 `@define-color` tokens as inua's, only the ones it changes; the rest

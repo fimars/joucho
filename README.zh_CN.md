@@ -44,7 +44,7 @@ go build -o joucho .
 
 ```sh
 ./joucho --demo
-./joucho --demo --theme yoru --text-scale 125
+./joucho --demo --theme yoru --ui-scale 160
 ```
 
 `--list` 打印找到的用户和会话，然后退出。
@@ -53,6 +53,7 @@ go build -o joucho .
 | --- | --- |
 | `--config PATH` | 设置文件（默认 `/etc/joucho/config.toml`） |
 | `--theme NAME` | 配色主题，覆盖配置里的 `theme` |
+| `--ui-scale N` | 80 到 200，覆盖 `ui_scale` |
 | `--text-scale N` | 80 到 150，覆盖 `text_scale` |
 | `--demo` | 在自己的会话里运行，不经过 greetd；不做真正的认证 |
 | `--sessions-dir DIRS` | 到哪里找会话，冒号分隔 |
@@ -88,7 +89,8 @@ sudo systemctl stop sddm && sudo systemctl start greetd
 | 设置 | 默认值 | 说明 |
 | --- | --- | --- |
 | `theme` | `"washi"` | 内置主题（`washi`、`yoru`、`isekai`……），或配置旁边的 `themes/NAME.css` |
-| `text_scale` | `100` | 文字大小，80 到 150；含义与 inua 的 `style.text_scale` 相同，只缩放字号 |
+| `ui_scale` | `0`（自动） | 整个界面的大小，80 到 200；缩放卡片、控件、图标、间距和文字，`text_scale` 会在此基础上继续缩放文字 |
+| `text_scale` | `100` | 额外的文字大小，80 到 150；含义与 inua 的 `style.text_scale` 相同，只缩放字号 |
 | `language` | `"auto"` | `auto`（跟随 LANG）、`en`、`zh_CN` |
 | `user` | `""` | 默认选中的用户；留空则选本次开机最后一个登录的用户 |
 | `session` | `"inua.desktop"` | 默认选中的会话，来自 `/usr/share/wayland-sessions` |
@@ -96,6 +98,10 @@ sudo systemctl stop sddm && sudo systemctl start greetd
 | `font` | `""` | 窗口字体；留空则用内置字体栈，也就是 shell 自己的（Zen Kaku Gothic New、Noto Sans CJK JP/SC） |
 | `power` | `true` | 显示休眠、重启和关机按钮（它们询问 logind；没有权限时会提示） |
 | `clock_seconds` | `false` | 时钟是否显示秒 |
+
+自动 `ui_scale` 以第一块显示器的逻辑 DPI 对比设计的 96 DPI 基准，
+取最近的 20% 档位，并限制在 100～200。读不到物理尺寸时回退到 100。
+手动设为 80～200 会覆盖自动结果；设为 `100` 可以强制保持原始大小。
 
 自己的主题放在 `/etc/joucho/themes/NAME.css`：用与 inua 相同的
 `@define-color` 令牌，只写要改的那些，其余沿用它所基于的主题。可以

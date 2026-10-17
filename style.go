@@ -7,6 +7,7 @@ import (
 	"image"
 	"image/color"
 	"image/png"
+	"math"
 	"net/url"
 	"os"
 	"os/exec"
@@ -15,6 +16,8 @@ import (
 	"slices"
 	"strconv"
 	"strings"
+
+	"codeberg.org/puregotk/puregotk/v4/gdk"
 )
 
 // The built-in themes are inua's (ui/themes/), Apache-2.0, so the greeter
@@ -102,7 +105,25 @@ func (g *greeter) warnMissingFont() {
 	}
 }
 
-var fontSizePx = regexp.MustCompile(`(font-size\s*:\s*)([0-9]*\.?[0-9]+)px`)
+var (
+	cssPx      = regexp.MustCompile(`[0-9]*\.?[0-9]+px`)
+	fontSizePx = regexp.MustCompile(`(font-size\s*:\s*)([0-9]*\.?[0-9]+)px`)
+)
+
+// scaleUI multiplies every pixel size of a stylesheet by percent/100
+// (ui_scale).
+func scaleUI(css string, percent int) string {
+	if percent == 100 {
+		return css
+	}
+	return cssPx.ReplaceAllStringFunc(css, func(m string) string {
+		px, err := strconv.ParseFloat(strings.TrimSuffix(m, "px"), 64)
+		if err != nil {
+			return m
+		}
+		return scaledPx(px, percent)
+	})
+}
 
 // scaleText multiplies the pixel font sizes of a stylesheet by
 // percent/100 (text_scale), leaving every other size as it is. It is
@@ -117,9 +138,51 @@ func scaleText(css string, percent int) string {
 		if err != nil {
 			return m
 		}
-		px = float64(int(px*float64(percent)+0.5)) / 100 // to 0.01px
-		return sub[1] + strconv.FormatFloat(px, 'f', -1, 64) + "px"
+		return sub[1] + scaledPx(px, percent)
 	})
+}
+
+func scaledPx(px float64, percent int) string {
+	px = float64(int(px*float64(percent)+0.5)) / 100 // to 0.01px
+	return strconv.FormatFloat(px, 'f', -1, 64) + "px"
+}
+
+// automaticUIScale compares the first monitor's logical DPI with the
+// design's 96 DPI, then picks a predictable scale for the greeter.
+func automaticUIScale() int {
+	var dpi float64
+	if display := gdk.DisplayGetDefault(); display != nil {
+		if monitors := display.GetMonitors(); monitors != nil {
+			if mon := gdk.MonitorNewFromInternalPtr(monitors.GetItem(0)); mon != nil {
+				var geo gdk.Rectangle
+				mon.GetGeometry(&geo)
+				if widthMm := mon.GetWidthMm(); geo.Width > 0 && widthMm > 0 {
+					dpi = float64(geo.Width) * 25.4 / float64(widthMm)
+				}
+			}
+		}
+	}
+	if dpi <= 0 {
+		logf("ui_scale: automatic 100%% (monitor logical DPI unavailable)")
+		return 100
+	}
+	scale := scaleForDPI(dpi)
+	logf("ui_scale: automatic %d%% (%.1f logical DPI)", scale, dpi)
+	return scale
+}
+
+func scaleForDPI(dpi float64) int {
+	if dpi <= 0 {
+		return 100
+	}
+	scale := int(math.Round(dpi/96*100/20)) * 20
+	if scale < 100 {
+		return 100
+	}
+	if scale > maxUIScale {
+		return maxUIScale
+	}
+	return scale
 }
 
 var defineColor = regexp.MustCompile(`@define-color\s+([\w-]+)\s+(#[0-9a-fA-F]{6})\s*;`)
