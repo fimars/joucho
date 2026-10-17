@@ -1,0 +1,143 @@
+/* joucho's style, in inua's language (ui/style.css): hairline borders,
+   2–4 px corners, one accent per surface, mono readouts, humanist sans
+   running text. The colours are the theme's tokens, loaded before this
+   file. Font sizes are in px so text_scale can scale them. */
+
+window.greet {
+  font-family: "Zen Kaku Gothic New", "Noto Sans CJK JP", "Noto Sans CJK SC", sans-serif;
+  font-size: 13px;
+  color: @t0;
+}
+
+.greet-card {
+  background: alpha(@app, 0.88);
+  border: 1px solid @line;
+  border-radius: 4px;
+  padding: 22px 24px 20px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.32);
+}
+
+.greet-time {
+  font-family: "Geist Mono", "IBM Plex Mono", "JetBrains Mono", monospace;
+  font-feature-settings: "tnum";
+  font-size: 44px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: @t0;
+}
+
+.greet-date {
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: @t2;
+}
+
+.greet-card separator {
+  background: alpha(@line, 0.7);
+  min-height: 1px;
+}
+
+/* The user and session rows. */
+.greet-card button.row {
+  min-height: 34px;
+  padding: 4px 8px;
+  background: transparent;
+  border: none;
+  border-radius: 2px;
+  box-shadow: none;
+  outline: none;
+  color: @t0;
+}
+.greet-card button.row:hover { background: alpha(@accent, 0.09); }
+.greet-card button.row:active { background: alpha(@accent, 0.16); }
+.greet-card button.row label.name { font-size: 13.5px; font-weight: 500; }
+
+/* The password entry. */
+.greet-card entry {
+  min-height: 36px;
+  padding: 0 10px;
+  background: @surface;
+  color: @t0;
+  caret-color: @accent;
+  border: 1px solid @line;
+  border-radius: 2px;
+  box-shadow: none;
+  outline: none;
+}
+.greet-card entry:focus-within {
+  border-color: @accent;
+  box-shadow: 0 0 0 3px alpha(@accent, 0.14);
+}
+.greet-card entry placeholder { color: @t2; }
+.greet-card entry:disabled { background: alpha(@surface, 0.6); color: @t2; }
+
+/* Sign in. */
+.greet-card button.primary {
+  min-height: 36px;
+  background: @accent;
+  color: @app;
+  border: none;
+  border-radius: 2px;
+  font-weight: 500;
+  box-shadow: none;
+  outline: none;
+}
+.greet-card button.primary:hover { background: shade(@accent, 0.92); }
+.greet-card button.primary:active { background: shade(@accent, 0.85); }
+.greet-card button.primary:disabled { background: alpha(@accent, 0.35); color: alpha(@app, 0.75); }
+
+/* What greetd says. */
+.status { font-size: 12px; color: @t1; }
+.status.error { color: @danger; }
+
+/* Suspend, restart, power off. */
+.greet-power button.plain {
+  min-width: 32px;
+  min-height: 32px;
+  padding: 4px;
+  border: none;
+  border-radius: 2px;
+  background: alpha(@app, 0.6);
+  color: @t1;
+  box-shadow: none;
+  outline: none;
+}
+.greet-power button.plain:hover { background: alpha(@accent, 0.12); color: @t0; }
+
+/* The user and session menus. */
+popover.greet-menu {
+  background: @surface;
+  border: 1px solid @line;
+  border-radius: 4px;
+  padding: 5px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.32);
+}
+popover.greet-menu contents { background: transparent; padding: 0; min-width: 338px; }
+popover.greet-menu button.menu-item {
+  min-height: 30px;
+  padding: 2px 6px;
+  border: none;
+  border-radius: 2px;
+  background: transparent;
+  color: @t0;
+  box-shadow: none;
+  outline: none;
+}
+popover.greet-menu button.menu-item:hover { background: alpha(@accent, 0.09); }
+popover.greet-menu button.menu-item image.check { color: @accent; }
+
+/* The isekai theme's night panel (decor.go draws what is in it). */
+.isekai-night { background: @sb; }
+.isekai-power button.plain {
+  min-width: 32px;
+  min-height: 32px;
+  padding: 4px;
+  border: none;
+  border-radius: 2px;
+  background: transparent;
+  color: rgba(244, 240, 232, 0.72);
+  box-shadow: none;
+  outline: none;
+}
+.isekai-power button.plain:hover { background: rgba(244, 240, 232, 0.10); color: #F4F0E8; }

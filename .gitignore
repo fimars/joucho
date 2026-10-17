@@ -1,0 +1,19 @@
+# The greeter binary: built in the repository root by
+# `go build -o joucho .` and installed by scripts/install.sh.
+/joucho
+
+# Renders from `joucho --render FILE`.
+/render*.png
+
+# Go test and profile output.
+*.test
+*.prof
+*.out
+
+# Editors and operating systems.
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.idea/
+.vscode/

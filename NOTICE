@@ -1,0 +1,18 @@
+joucho is under the Apache License 2.0; see LICENSE. Copyright 2026
+fimars.
+
+It is built with inua's toolkit and copies parts of inua
+(https://github.com/lyricat/inua), which is under the Apache License 2.0:
+
+  - assets/themes/*.css: the built-in colour themes (inua's ui/themes/)
+  - the scaleText function (inua's internal/shell/textscale.go)
+  - the field texture drawing (inua's internal/shell/wallpaper.go)
+  - the cairo binding (inua's internal/gamesui/cairo.go), which draws the
+    isekai composition
+
+The isekai theme's composition (decor.go, assets/themes/isekai.css) is
+fimars's own drawing in the ISEKAI JŌCHO concept, used with permission;
+it is not from inua. It is a fan tribute to the virtual singer ヰ世界情緒
+(Isekaijoucho) of KAMITSUBAKI STUDIO: no official artwork is included,
+and joucho is not affiliated with the artist or the studio. The credit
+on screen says so.

@@ -1,0 +1,21 @@
+/* 異世界情緒 Isekai Jōchō — the concept's five colours as inua's tokens:
+   paper #F4F0E8, ink #14131A, rust #A6402B, eye #7F8C94, sun #F2C230.
+   Paper ground, ink text, rust for what is active and selected, the eye
+   grey for what is quiet, the sun for warnings. */
+
+@define-color app #F4F0E8;       /* paper */
+@define-color panel #EDE7DB;     /* paper, a shade deeper */
+@define-color surface #FAF8F2;   /* entries and cards */
+@define-color surface2 #E8E1D3;  /* wells */
+@define-color sb #14131A;        /* ink, dark ground */
+@define-color t0 #14131A;        /* ink */
+@define-color t1 #55514A;        /* ink, thinned */
+@define-color t2 #7F8C94;        /* eye */
+@define-color line #D9D1C1;      /* hairline on paper */
+@define-color accent #A6402B;    /* rust */
+@define-color sbaccent #D48A73;  /* rust, lifted for the dark */
+@define-color primary #14131A;   /* ink */
+@define-color danger #93291A;    /* rust, deepened */
+@define-color ok #5E7057;        /* moss */
+@define-color warn #F2C230;      /* sun */
+@define-color field #C4BCAD;     /* the texture's run */

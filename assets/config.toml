@@ -1,0 +1,42 @@
+# joucho settings, /etc/joucho/config.toml.
+#
+# Every value below is the default until you change it; delete a line to go
+# back to its default. Unknown keys and bad values are reported in greetd's
+# log, and that setting's default is used.
+
+# Colour theme: a built-in inua theme (aojashin, bunko, denko, isekai,
+# rinko, suimen, washi, yoru) or the name of themes/NAME.css beside this
+# file.
+theme = "washi"
+
+# Text size of the greeter, 80 to 150 percent. Only font sizes scale, as in
+# inua's style.text_scale.
+text_scale = 100
+
+# "auto" follows the system (LANG, LC_ALL, LC_MESSAGES); or "en", "zh_CN".
+language = "auto"
+
+# The user to start on: a login name, or empty for the one who logged
+# in last this boot.
+user = ""
+
+# The session to start on: a .desktop file in /usr/share/wayland-sessions.
+session = "inua.desktop"
+
+# Picture behind the card: an absolute path. Empty: the theme's field
+# texture, as the shell's wallpaper shows it.
+wallpaper = ""
+
+# Window font. Empty: the built-in stack, the shell's own (Zen Kaku Gothic
+# New, Noto Sans CJK JP/SC), then the system's sans. The greeter runs as the
+# greetd user, which cannot see fonts in your home; to use one of those,
+# install it in /usr/local/share/fonts and run fc-cache -f. To use another
+# font, name its family here.
+font = ""
+
+# Show the suspend, restart and power off buttons. They ask logind, which
+# may want a password the greeter cannot give; then it says so.
+power = true
+
+# Show seconds in the clock.
+clock_seconds = false
