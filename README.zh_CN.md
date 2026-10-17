@@ -1,5 +1,7 @@
 # joucho
 
+![joucho 的登录卡片与 isekai 构图](docs/isekai.webp)
+
 [inua](https://github.com/lyricat/inua) 的登录界面，也是 inua 的样子：
 一个写给 [greetd](https://github.com/kennylevinsen/greetd) 的 Wayland
 greeter，用 Go 和 GTK4 写成，用的是 shell 自己的绑定

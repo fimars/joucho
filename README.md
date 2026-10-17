@@ -1,5 +1,7 @@
 # joucho
 
+![joucho's sign-in card over the isekai composition](docs/isekai.webp)
+
 The login screen for [inua](https://github.com/lyricat/inua), in inua's
 look: a Wayland greeter for [greetd](https://github.com/kennylevinsen/greetd),
 written in Go with GTK4 through the same bindings the shell uses
