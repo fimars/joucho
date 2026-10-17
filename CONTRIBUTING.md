@@ -72,7 +72,7 @@ sudo systemctl stop sddm && sudo systemctl start greetd
 | `users.go`, `sessions.go` | `/etc/passwd` and `.desktop` sessions |
 | `i18n.go` | strings, English and Simplified Chinese |
 | `assets/` | built-in themes, `style.css`, the default `config.toml` |
-| `docs/` | the README picture |
+| `docs/` | the README pictures |
 | `scripts/` | `install.sh` and `revert.sh` |
 
 ## What to keep in mind

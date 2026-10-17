@@ -1,6 +1,6 @@
 # joucho
 
-![joucho 的登录卡片与 isekai 构图](docs/isekai.webp)
+![joucho 的登录卡片与 isekai 构图](docs/isekai-zh_CN.webp)
 
 [inua](https://github.com/lyricat/inua) 的登录界面，也是 inua 的样子：
 一个写给 [greetd](https://github.com/kennylevinsen/greetd) 的 Wayland

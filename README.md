@@ -1,6 +1,6 @@
 # joucho
 
-![joucho's sign-in card over the isekai composition](docs/isekai.webp)
+![joucho's sign-in card over the isekai composition](docs/isekai-en.webp)
 
 The login screen for [inua](https://github.com/lyricat/inua), in inua's
 look: a Wayland greeter for [greetd](https://github.com/kennylevinsen/greetd),
